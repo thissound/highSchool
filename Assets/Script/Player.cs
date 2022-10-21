@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    //live
+    public int live = 3;
+
     //Speed value
     public float moveSpeed = 5f;
     public float jumpSpeed = 10f;
@@ -32,6 +35,15 @@ public class Player : MonoBehaviour
     {
         Move();
         Jump();
+        Dead();
+    }
+
+    void Dead()
+    {
+        if(live == 0)
+        {
+            SceneManager.LoadScene("Over");
+        }
     }
 
     void Move()
@@ -83,11 +95,13 @@ public class Player : MonoBehaviour
 
         if(other.gameObject.tag == "Saw")
         {
+            live -= 1;
             gameObject.transform.SetPositionAndRotation(FirstPos.transform.position, Quaternion.identity);
         }
 
         if(other.gameObject.tag == "Fall")
         {
+            live -= 1;
             gameObject.transform.SetPositionAndRotation(FirstPos.transform.position, Quaternion.identity);
         }
 
